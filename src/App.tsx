@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
-import Pokemon from "./pages/Pokemon.tsx";
+import PokemonList from "./pages/PokemonList.tsx";
 
 const App: React.FC = () => {
   return (
     <Routes>
-        <Route path="/" element={<Pokemon />} />
+        <Route path="/" element={<PokemonList />} />
     </Routes>
   );
 }
