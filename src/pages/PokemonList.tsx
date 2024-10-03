@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from "./Header";
-import PokemonListHook from "./PokemonListHook";
-import CardSingle from "./PokemonSingle";
+import Header from "../components/Header";
+import CardSingle from "../components/PokemonSingle";
+import PokemonListHook from "../hooks/PokemonListHook";
 
 const Index: React.FC = () => {
   const pokemonHook = PokemonListHook(10);

@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import PokemonSingleHook from "./PokemonSingleHook";
+import PokemonSingleHook from "../hooks/PokemonSingleHook";
 
 interface Parameters {
     name : string;

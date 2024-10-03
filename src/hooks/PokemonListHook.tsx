@@ -11,9 +11,8 @@ interface Results {
 }
 
 const Hook = (total : number) => {
-    const [pokemonList, setPokemonList] = useState<{
-        name: string, url: string}[]>([]);
-    
+    const [pokemonList, setPokemonList] = useState<PokemonList[]>([]);
+     
     useEffect(() =>{
         const hook = async() => {
             const response = await Axios.get<Results>(`https://pokeapi.co/api/v2/pokemon?limit=` + total);
