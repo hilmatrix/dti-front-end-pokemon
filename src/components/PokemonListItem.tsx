@@ -1,19 +1,29 @@
 
 
 import React from 'react';
-import PokemonSingleHook from "../hooks/PokemonSingleHook";
+import { useParams } from 'react-router-dom';
+import PokemonSingleHook from "../hooks/PokemonListItemHook";
 
 interface Parameters {
-    name : string;
     url : string;
 }
 
 const Index : React.FC<Parameters> = ({url}) => {
+    const {subPage} = useParams();
+    if (subPage)
+        url = `https://pokeapi.co/api/v2/pokemon/${subPage}/`
     const pokemonHook = PokemonSingleHook(url);
+
+    const handleClick = () => {
+        window.location.href = `/detail/${pokemonHook?.id}/`;
+      };
 
     return (
         <div className='flex justify-center items-center'>
             <div className='bg-white rounded-[30px] h-[300px] w-[300px]  m-[20px] relative'>
+                <div className='absolute z-10 inset-0'>
+                    <button onClick={() => {handleClick()}} className='w-[100%] h-[100%]'></button>
+                </div>
                 <div className="w-[200px] h-[200px]   inset-0  m-auto  absolute">
                     <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/`+pokemonHook?.id +`.png`}></img>
                 </div>

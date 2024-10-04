@@ -3,7 +3,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Header from "../components/Header";
-import CardSingle from "../components/PokemonSingle";
+import CardSingle from "../components/PokemonListItem.tsx";
 import PokemonListHook from "../hooks/PokemonListHook";
 import { RootState } from '../redux/store.tsx';
 
@@ -20,7 +20,7 @@ const Index: React.FC = () => {
         
         <main className='pt-[100px]'>
           <div className={displayGrid ? "grid grid-cols-2 gap-4" : ""}>
-          {pokemonHook ?  pokemonHook.map(pokemon => (<CardSingle name={pokemon.name} url={pokemon.url}/>)): 'Loading' }
+          {pokemonHook ?  pokemonHook.map(pokemon => (<CardSingle url={pokemon.url}/>)): 'Loading' }
           </div>
         </main>
       </>
