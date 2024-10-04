@@ -1,7 +1,6 @@
 
 
 import React from 'react';
-import { useParams } from 'react-router-dom';
 import PokemonSingleHook from "../hooks/PokemonListItemHook";
 
 interface Parameters {
@@ -9,9 +8,6 @@ interface Parameters {
 }
 
 const Index : React.FC<Parameters> = ({url}) => {
-    const {subPage} = useParams();
-    if (subPage)
-        url = `https://pokeapi.co/api/v2/pokemon/${subPage}/`
     const pokemonHook = PokemonSingleHook(url);
 
     const handleClick = () => {

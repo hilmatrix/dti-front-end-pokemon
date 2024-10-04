@@ -13,12 +13,12 @@ const Index: React.FC = () => {
 
   return (
     <>
-      <Header></Header>
+      <Header showTools={true}></Header>
         <div className='pt-[100px] flex items-center justify-center'>
           <h1 className='text-white text-[36px]'></h1>
         </div>
         
-        <main className='pt-[100px]'>
+        <main >
           <div className={displayGrid ? "grid grid-cols-2 gap-4" : ""}>
           {pokemonHook ?  pokemonHook.map(pokemon => (<CardSingle url={pokemon.url}/>)): 'Loading' }
           </div>

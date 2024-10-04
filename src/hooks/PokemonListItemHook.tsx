@@ -9,10 +9,21 @@ interface Type {
     name: string;
 }
 
+interface Stats {
+    base_stat : number;
+    effort : number;
+    stat : Stat;
+}
+
+interface Stat {
+    name : string;
+}
+
 interface PokemonData {
     id : number,
     name : string,
     types : Types[]
+    stats : Stats[]
 }
 
 const Hook = (url : string) => {

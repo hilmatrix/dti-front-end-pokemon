@@ -6,18 +6,23 @@ import Logo from "../assets/logo.png";
 import Search from "../assets/search.png";
 import { RootState, setDisplayGrid } from "../redux/store.tsx";
 
-const Index : React.FC = () => {
+interface Parameters {
+   showTools : boolean
+}
+
+const Index : React.FC<Parameters> = ({showTools}) => {
   const dispatch = useDispatch();
   const displayGrid = useSelector((state : RootState) => state.displayGrid.value);
 
     return (
         <header className="text-white h-[100px] fixed w-[100%] bg-[#252A3E] z-10">
-          <div className="flex ">
-            <div  className='w-1/6'><img src={Logo}></img></div>
-            <div  className='w-2/3'></div>
-            <div  className='w-1/6 flex items-center justify-end mx-[20px]'><img src={Search}></img></div>
+          <div className="flex">
+            <div  className='w-1/3 '><img className='h-full' src={Logo}></img></div>
+            <div  className='w-1/3'></div>
+            <div  className='w-1/3 flex items-center justify-end mx-[20px]'><img src={Search}></img></div>
           </div>
           <div className="w-full h-[2px] bg-[#3D4466]"></div>
+          {showTools ? 
           <div className="py-[10px]">
             <div className="flex">
               <div  className='w-1/2 flex items-center justify-end '>
@@ -45,6 +50,9 @@ const Index : React.FC = () => {
               </div>
             </div>
           </div>
+          :
+          <></>
+          }
         </header>
     );
 }
