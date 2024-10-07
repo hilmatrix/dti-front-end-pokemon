@@ -1,15 +1,31 @@
 
 
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Header from "../components/Header";
 import CardSingle from "../components/PokemonListItem.tsx";
 import PokemonListHook from "../hooks/PokemonListHook";
-import { RootState } from '../redux/store.tsx';
+import { RootState, setSearchChanged } from '../redux/store.tsx';
 
 const Index: React.FC = () => {
-  const pokemonHook = PokemonListHook(10);
+  const {pokemonListOriginal} = PokemonListHook(20);
+  const [filteredPokemonList, setFilteredPokemonList] = useState(pokemonListOriginal);
+  const dispatch = useDispatch();
+
   const displayGrid = useSelector((state : RootState) => state.displayGrid.value);
+  const searchChanged = useSelector((state : RootState) => state.searchChanged.value);
+  const searchItem = useSelector((state : RootState) => state.searchItem.value);
+  
+
+  useEffect(() => {
+    if (pokemonListOriginal && !searchItem)
+      setFilteredPokemonList(pokemonListOriginal);
+    if (searchChanged) {
+      const filteredList = pokemonListOriginal.filter((pokemon) => (pokemon.name.toLowerCase().includes(searchItem.toLowerCase())));
+      setFilteredPokemonList(filteredList);
+      dispatch(setSearchChanged(false));
+    }
+  },  [searchChanged, searchItem, pokemonListOriginal]);
 
   return (
     <>
@@ -20,7 +36,7 @@ const Index: React.FC = () => {
         
         <main >
           <div className={displayGrid ? "grid grid-cols-2 gap-4" : ""}>
-          {pokemonHook ?  pokemonHook.map(pokemon => (<CardSingle url={pokemon.url}/>)): 'Loading' }
+          {filteredPokemonList ?  filteredPokemonList.map(pokemon => (<CardSingle url={pokemon.url}/>)): 'Loading' }
           </div>
         </main>
       </>

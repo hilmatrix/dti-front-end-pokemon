@@ -12,16 +12,18 @@ interface Results {
 
 const Hook = (total : number) => {
     const [pokemonList, setPokemonList] = useState<PokemonList[]>([]);
+    const [pokemonListOriginal, setPokemonListOriginal] = useState<PokemonList[]>([]);
      
     useEffect(() =>{
         const hook = async() => {
             const response = await Axios.get<Results>(`https://pokeapi.co/api/v2/pokemon?limit=` + total);
             setPokemonList(response.data.results);
+            setPokemonListOriginal([...response.data.results]);
         };
         hook();
     });
 
-    return pokemonList;
+    return {pokemonList, pokemonListOriginal};
 };
 
 export default Hook;

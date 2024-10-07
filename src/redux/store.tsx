@@ -5,13 +5,22 @@ interface BooleanState {
     value: boolean;
   }
 
-  const initialState: BooleanState = {
+  interface StringState {
+    value: string;
+  }
+
+  const initialBooeanState: BooleanState = {
     value: false,
   };
 
-const displaySlice = createSlice({
-    name : 'display',
-    initialState,
+
+  const initialStringState: StringState = {
+    value: "",
+  };
+
+const displayGridSlice = createSlice({
+    name : 'displayGrid',
+    initialState : initialBooeanState,
     reducers : {
         setDisplayGrid : (state, action : PayloadAction<boolean>) => {
             state.value = action.payload;
@@ -19,11 +28,35 @@ const displaySlice = createSlice({
     }
 });
 
-export const { setDisplayGrid  } = displaySlice.actions;
+const searchChangedSlice = createSlice({
+    name : 'searchChanged',
+    initialState : initialBooeanState,
+    reducers : {
+        setSearchChanged : (state, action : PayloadAction<boolean>) => {
+            state.value = action.payload;
+        }
+    }
+});
+
+const searchItemSlice = createSlice({
+    name : 'searchItem',
+    initialState : initialStringState,
+    reducers : {
+        setSearchItem : (state, action : PayloadAction<string>) => {
+            state.value = action.payload;
+        }
+    }
+});
+
+export const { setDisplayGrid  } = displayGridSlice.actions;
+export const { setSearchChanged  } = searchChangedSlice.actions;
+export const { setSearchItem  } = searchItemSlice.actions;
 
 const store = configureStore({
     reducer : {
-        displayGrid : displaySlice.reducer
+        displayGrid : displayGridSlice.reducer,
+        searchChanged : searchChangedSlice.reducer,
+        searchItem : searchItemSlice.reducer
     }
 });
 

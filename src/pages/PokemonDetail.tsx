@@ -3,6 +3,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import Header from "../components/Header";
+import { capitalizeFirstChar } from "../helper/Helper.tsx";
 import PokemonSingleHook from "../hooks/PokemonListItemHook";
 
 interface Parameters {
@@ -17,11 +18,6 @@ const Index : React.FC<Parameters> = ({url}) => {
 
     const handleClick = () => {
         window.location.href = `/detail/${pokemonHook?.id}/`;
-      };
-
-      const capitalizeFirstChar = (str: string): string => {
-        if (!str) return str; // Handle empty string
-        return str.charAt(0).toUpperCase() + str.slice(1);
       };
 
     const calculateWidth = (health : number | undefined) => {

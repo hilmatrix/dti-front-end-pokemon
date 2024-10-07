@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Logo from "../assets/logo.png";
 import Search from "../assets/search.png";
-import { RootState, setDisplayGrid } from "../redux/store.tsx";
+import { RootState, setDisplayGrid, setSearchChanged, setSearchItem } from "../redux/store.tsx";
 
 interface Parameters {
    showTools : boolean
@@ -13,13 +13,23 @@ interface Parameters {
 const Index : React.FC<Parameters> = ({showTools}) => {
   const dispatch = useDispatch();
   const displayGrid = useSelector((state : RootState) => state.displayGrid.value);
+  const [showSearch, setShowSearch] = useState<boolean>(false);
+
+  const handleSearchChange = (event : React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSearchItem(event.target.value));
+    dispatch(setSearchChanged(true));
+  };
 
     return (
         <header className="text-white h-[100px] fixed w-[100%] bg-[#252A3E] z-10">
-          <div className="flex">
+          <div className="flex relative">
             <div  className='w-1/3 '><img className='h-full' src={Logo}></img></div>
             <div  className='w-1/3'></div>
-            <div  className='w-1/3 flex items-center justify-end mx-[20px]'><img src={Search}></img></div>
+            <div  className='w-1/3 flex items-center justify-end mx-[20px]'>
+                <input onChange={handleSearchChange} className={`w-[${showSearch ? "200px" : "0px"}] mr-[20px] rounded-[20px] text-[#000000]`}></input>
+                <img src={Search}></img>
+                <button onClick={() => setShowSearch(!showSearch)} className='bg-[#00000000] w-[40px] h-[40px] absolute'></button>
+            </div>
           </div>
           <div className="w-full h-[2px] bg-[#3D4466]"></div>
           {showTools ? 
