@@ -48,15 +48,40 @@ const searchItemSlice = createSlice({
     }
 });
 
+const sortChangedSlice = createSlice({
+    name : 'sortChanged',
+    initialState : initialBooeanState,
+    reducers : {
+        setSortChanged : (state, action : PayloadAction<boolean>) => {
+            state.value = action.payload;
+        }
+    }
+});
+
+const sortTypeSlice = createSlice({
+    name : 'sortType',
+    initialState : initialStringState,
+    reducers : {
+        setSortType : (state, action : PayloadAction<string>) => {
+            state.value = action.payload;
+        }
+    }
+});
+
+
 export const { setDisplayGrid  } = displayGridSlice.actions;
 export const { setSearchChanged  } = searchChangedSlice.actions;
 export const { setSearchItem  } = searchItemSlice.actions;
+export const { setSortChanged  } = sortChangedSlice.actions;
+export const { setSortType  } = sortTypeSlice.actions;
 
 const store = configureStore({
     reducer : {
         displayGrid : displayGridSlice.reducer,
         searchChanged : searchChangedSlice.reducer,
-        searchItem : searchItemSlice.reducer
+        searchItem : searchItemSlice.reducer,
+        sortChanged : searchChangedSlice.reducer,
+        sortType : sortTypeSlice.reducer,
     }
 });
 

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Header from "../components/Header";
 import CardSingle from "../components/PokemonListItem.tsx";
 import PokemonListHook from "../hooks/PokemonListHook";
-import { RootState, setSearchChanged } from '../redux/store.tsx';
+import { RootState, setSearchChanged, setSortChanged } from '../redux/store.tsx';
 
 const Index: React.FC = () => {
   const {pokemonListOriginal} = PokemonListHook(20);
@@ -15,7 +15,8 @@ const Index: React.FC = () => {
   const displayGrid = useSelector((state : RootState) => state.displayGrid.value);
   const searchChanged = useSelector((state : RootState) => state.searchChanged.value);
   const searchItem = useSelector((state : RootState) => state.searchItem.value);
-  
+  const sortChanged = useSelector((state : RootState) => state.sortChanged.value);
+  const sortType = useSelector((state : RootState) => state.sortType.value);
 
   useEffect(() => {
     if (pokemonListOriginal && !searchItem)
@@ -25,7 +26,24 @@ const Index: React.FC = () => {
       setFilteredPokemonList(filteredList);
       dispatch(setSearchChanged(false));
     }
-  },  [searchChanged, searchItem, pokemonListOriginal]);
+    if (sortChanged) {
+      console.log(sortType);
+      if (sortType.toLowerCase().includes("name-asc")) {
+        const filteredList = filteredPokemonList.sort((a, b) => {
+            return a.name.localeCompare(b.name);
+        });
+        setFilteredPokemonList(filteredList);
+        console.log(filteredList);
+      } else if (sortType.toLowerCase().includes("name-desc")) {
+        const filteredList = filteredPokemonList.sort((a, b) => {
+            return b.name.localeCompare(a.name);
+        });
+        setFilteredPokemonList(filteredList);
+        console.log(filteredList);
+      }
+      dispatch(setSortChanged(false));
+    }
+  },  [searchChanged, searchItem, pokemonListOriginal, sortChanged, sortType, dispatch]);
 
   return (
     <>
