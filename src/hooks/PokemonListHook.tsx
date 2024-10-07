@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import { useEffect, useState } from 'react';
 
-interface PokemonList {
+export interface PokemonList {
     name: string;
     url: string;
 }

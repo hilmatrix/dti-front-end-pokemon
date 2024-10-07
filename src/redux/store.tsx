@@ -80,7 +80,7 @@ const store = configureStore({
         displayGrid : displayGridSlice.reducer,
         searchChanged : searchChangedSlice.reducer,
         searchItem : searchItemSlice.reducer,
-        sortChanged : searchChangedSlice.reducer,
+        sortChanged : sortChangedSlice.reducer,
         sortType : sortTypeSlice.reducer,
     }
 });
